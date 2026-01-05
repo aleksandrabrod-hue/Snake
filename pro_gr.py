@@ -135,80 +135,74 @@ ruch_wykonany = False
 
 
 # --- Główna pętla ---
-while True:
-    if len(snake)-1 >=10 :
-        FPS=3  
-    else:
-        FPS=6
-    for event in pygame.event.get():
-        if event.type == pygame.QUIT:
-            quit()
-        elif event.type == pygame.KEYDOWN:
-            if not ruch_wykonany:
-                if event.key == pygame.K_UP and kierunek != "DOL":
-                    kierunek = "GORA"
-                    ruch_wykonany = True
-                elif event.key == pygame.K_DOWN and kierunek != "GORA":
-                    kierunek = "DOL"
-                    ruch_wykonany = True
-                elif event.key == pygame.K_LEFT and kierunek != "PRAWO":
-                    kierunek = "LEWO"
-                    ruch_wykonany = True
-                elif event.key == pygame.K_RIGHT and kierunek != "LEWO":
-                    kierunek = "PRAWO"
-                    ruch_wykonany = True
-                elif event.key == pygame.K_p:
-                    pauza = not pauza
-                elif event.key == pygame.K_SPACE:
-                    temp_FPS = not temp_FPS
-    # przyspieszanie
-    if temp_FPS == True:
-        FPS=FPS+6
-    
-    if len(snake) == temp_snake+1:
-        temp_FPS = False
-    temp_snake=len(snake)
-
-    # --- Ruch węża ---
-    if not pauza:
-        glowa_x, glowa_y = snake[-1] #To jest tzw. rozpakowanie krotki (tuple unpacking). Musimy poznac wspołrzedne głowy : x i y
-
-        if kierunek == "GORA":
-            glowa_y -= 1
-        elif kierunek == "DOL":
-            glowa_y += 1
-        elif kierunek == "LEWO":
-            glowa_x -= 1
-        elif kierunek == "PRAWO":
-            glowa_x += 1
-
-        # --- Sprawdzenie kolizji z krawędzią ---
-        if glowa_x < 0 or glowa_x >= ilkrat or glowa_y < 0 or glowa_y >= ilkrat:
-            ekran_game_over()
-            continue # to powoduje ze po gameover nie  nie wykonuje tych linii ponizej w pętli , tylko zaczyna gre od nowa
-
-                # --- Sprawdzenie kolizji z samym sobą ---
-        if (glowa_x, glowa_y) in snake:
-           ekran_game_over()
-           continue
-
-        snake.append((glowa_x, glowa_y))
-        #tutaj dodamy warunek jak zje, to sie nie wykona snake.pop(0) i wylosuje sie nowe jedzenie
-        if (glowa_x, glowa_y) == kolo:
-          while True:
-            kolo = (
-            random.randint(0, ilkrat - 1),
-            random.randint(0, ilkrat - 1)
-             )
-            if kolo not in snake: # to pilnuje zeby jedzenie nie pojawiło się na wezu
-               break
-              
-
+if __name__ == "__main__":
+    while True:
+        if len(snake)-1 >=10 :
+            FPS=3  
         else:
-           snake.pop(0)
+            FPS=6
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                quit()
+            elif event.type == pygame.KEYDOWN:
+                if not ruch_wykonany:
+                    if event.key == pygame.K_UP and kierunek != "DOL":
+                        kierunek = "GORA"
+                        ruch_wykonany = True
+                    elif event.key == pygame.K_DOWN and kierunek != "GORA":
+                        kierunek = "DOL"
+                        ruch_wykonany = True
+                    elif event.key == pygame.K_LEFT and kierunek != "PRAWO":
+                        kierunek = "LEWO"
+                        ruch_wykonany = True
+                    elif event.key == pygame.K_RIGHT and kierunek != "LEWO":
+                        kierunek = "PRAWO"
+                        ruch_wykonany = True
+                    elif event.key == pygame.K_p:
+                        pauza = not pauza
+                    elif event.key == pygame.K_SPACE:
+                        temp_FPS = not temp_FPS
+        # przyspieszanie
+        if temp_FPS == True:
+            FPS=FPS+6
+        
+        if len(snake) == temp_snake+1:
+            temp_FPS = False
+        temp_snake=len(snake)
 
+        # --- Ruch węża ---
+        if not pauza:
+            glowa_x, glowa_y = snake[-1]
 
-    # --- Rysowanie ---
-        rysuj(snake, kolo)
-        clock.tick(FPS)
-        ruch_wykonany = False
+            if kierunek == "GORA":
+                glowa_y -= 1
+            elif kierunek == "DOL":
+                glowa_y += 1
+            elif kierunek == "LEWO":
+                glowa_x -= 1
+            elif kierunek == "PRAWO":
+                glowa_x += 1
+
+            if glowa_x < 0 or glowa_x >= ilkrat or glowa_y < 0 or glowa_y >= ilkrat:
+                ekran_game_over()
+                continue
+
+            if (glowa_x, glowa_y) in snake:
+                ekran_game_over()
+                continue
+
+            snake.append((glowa_x, glowa_y))
+            if (glowa_x, glowa_y) == kolo:
+                while True:
+                    kolo = (
+                        random.randint(0, ilkrat - 1),
+                        random.randint(0, ilkrat - 1)
+                    )
+                    if kolo not in snake:
+                        break
+            else:
+                snake.pop(0)
+
+            rysuj(snake, kolo)
+            clock.tick(FPS)
+            ruch_wykonany = False
