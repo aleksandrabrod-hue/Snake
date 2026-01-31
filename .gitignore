@@ -1,0 +1,22 @@
+# Python cache i pliki tymczasowe
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Virtual Environment
+snake/       
+venv/
+.env/
+*.venv/
+
+# Pliki konfiguracyjne IDE (opcjonalnie)
+.vscode/
+.idea/
+
+# Logi i tymczasowe pliki
+*.log
+*.tmp
+
+# Systemowe
+.DS_Store
+Thumbs.db
