@@ -1,7 +1,7 @@
 # Snake
-Projekt grupowy, gra wąż
-Napisany przez: **Aleksandra Bród** i **Zofia Szafran** 
-Język: Python 3.13.5  
+Projekt grupowy, gra wąż<br>
+Napisany przez: **Aleksandra Bród** i **Zofia Szafran** <br>
+Język: Python 3.13.5 <br>
 Biblioteka: `pygame` 
 
 ## Opis
