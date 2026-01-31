@@ -129,6 +129,7 @@ clock = pygame.time.Clock()
 pauza = False
 temp_FPS =False
 temp_snake=1
+ruch_wykonany = False
 
 
 
@@ -142,18 +143,23 @@ while True:
         if event.type == pygame.QUIT:
             quit()
         elif event.type == pygame.KEYDOWN:
-            if event.key == pygame.K_UP and kierunek != "DOL":
-                kierunek = "GORA"
-            elif event.key == pygame.K_DOWN and kierunek != "GORA":
-                kierunek = "DOL"
-            elif event.key == pygame.K_LEFT and kierunek != "PRAWO":
-                kierunek = "LEWO"
-            elif event.key == pygame.K_RIGHT and kierunek != "LEWO":
-                kierunek = "PRAWO"
-            elif event.key == pygame.K_p:
-                pauza = not pauza
-            elif event.key == pygame.K_SPACE:
-               temp_FPS = not temp_FPS
+            if not ruch_wykonany:
+                if event.key == pygame.K_UP and kierunek != "DOL":
+                    kierunek = "GORA"
+                    ruch_wykonany = True
+                elif event.key == pygame.K_DOWN and kierunek != "GORA":
+                    kierunek = "DOL"
+                    ruch_wykonany = True
+                elif event.key == pygame.K_LEFT and kierunek != "PRAWO":
+                    kierunek = "LEWO"
+                    ruch_wykonany = True
+                elif event.key == pygame.K_RIGHT and kierunek != "LEWO":
+                    kierunek = "PRAWO"
+                    ruch_wykonany = True
+                elif event.key == pygame.K_p:
+                    pauza = not pauza
+                elif event.key == pygame.K_SPACE:
+                    temp_FPS = not temp_FPS
     # przyspieszanie
     if temp_FPS == True:
         FPS=FPS+6
@@ -204,3 +210,4 @@ while True:
     # --- Rysowanie ---
         rysuj(snake, kolo)
         clock.tick(FPS)
+        ruch_wykonany = False
