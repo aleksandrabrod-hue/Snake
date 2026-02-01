@@ -81,10 +81,11 @@ def ekran_game_over():
 
 # --- Funkcja resetu gry ---
 def reset_gry():
-    global snake, kierunek, kolo, pauza
+    global snake, kierunek, kolo, pauza, temp_FPS
 
     pauza = False
-   
+    
+    temp_FPS = False
     start_x = random.randint(0, ilkrat - 10)
     start_y = random.randint(0, ilkrat - 10)
 
