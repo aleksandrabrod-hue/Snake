@@ -128,7 +128,7 @@ def instrukcja_pomoc():
             "  Strzałki: poruszanie wężem\n"
             "  P: pauza / wznowienie gry\n"
             "  Spacja: tymczasowe przyspieszenie\n"
-            "  A: przyspieszenie do stalej predkosci 6 fps\n"
+            "  A: przyspieszenie do stalej predkosci 6 fps (blokuje funkcje chwilowego przyspieszania spacją)\n"
             "  N: nowa gra (po zakończeniu gry)\n"
             "  K: zakończenie gry\n\n"
             
@@ -145,9 +145,9 @@ def instrukcja_pomoc():
         default="domyslne",
         help=(
             "Motyw tła gry:\n"
-            "  domyslne      – Twój obecny kolor (niebieskie tło)\n"
-            "  pomaranczowe  – jasny pomarańczowy\n"
-            "  szare         – szary"
+            "  domyslne      - Twój obecny kolor (niebieskie tło)\n"
+            "  pomaranczowe  - jasny pomarańczowy\n"
+            "  szare         - szary"
         )
     )
 

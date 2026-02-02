@@ -110,6 +110,13 @@ Wyświetla ekran zakończenia gry oraz umożliwia:
 
 ---
 
+### ` instrukcja_pomoc()`
+Wyświetla instrukcję gry Snake w terminalu i obsługuje wybór motywu tła.
+Funkcja:
+- Tworzy parser,czytnik, argumentów wiersza poleceń (`argparse`).
+- Wyświetla szczegółową instrukcję sterowania, cel gry i dostępne opcje.
+- Obsługuje argument `--tlo`, który pozwala wybrać kolorystykę gry.
+
 ## Główna pętla gry
 Główna pętla gry odpowiada za:
 - obsługę zdarzeń klawiatury,
