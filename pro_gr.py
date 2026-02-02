@@ -1,4 +1,5 @@
 import pygame
+import argparse
 import sys
 import random
 
@@ -79,6 +80,45 @@ def ekran_game_over():
                     reset_gry()
                     return
 
+def parse_args():
+    parser = argparse.ArgumentParser(
+        description=(
+            "Gra Snake w Pythonie (pygame)\n\n"
+            "Sterowanie:\n"
+            "- Strzalki: ruch\n"
+            "- P: pauza\n"
+            "- Zamkniecie okna: wyjscie\n\n"
+            "Przyklad uruchomienia:\n"
+            "python pro_gr.py --grid 25 --fps 8"
+        ),
+        formatter_class=argparse.RawTextHelpFormatter
+    )
+
+    parser.add_argument(
+        "--grid",
+        type=int,
+        default=20,
+        help="Liczba kratek planszy (10–40)"
+    )
+
+    parser.add_argument(
+        "--fps",
+        type=int,
+        default=6,
+        help="Poczatkowa predkosc gry (1–20)"
+    )
+
+    args = parser.parse_args()
+
+    # --- WALIDACJA ---
+    if not (10 <= args.grid <= 40):
+        parser.error("grid musi byc w zakresie 10–40")
+
+    if not (1 <= args.fps <= 20):
+        parser.error("fps musi byc w zakresie 1–20")
+
+    return args
+
 # --- Funkcja resetu gry ---
 def reset_gry():
     global snake, kierunek, kolo, pauza, temp_FPS
@@ -134,8 +174,13 @@ ruch_wykonany = False
 
 
 
-# --- Główna pętla ---
+
 if __name__ == "__main__":
+    args = parse_args()
+
+    ilkrat = args.grid
+    FPS = args.fps
+# --- Główna pętla ---
     while True:
         if len(snake)-1 >=10 :
             FPS=3  
