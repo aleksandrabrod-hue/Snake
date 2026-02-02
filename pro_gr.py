@@ -13,15 +13,18 @@ szerokosc = kratka * ilkrat
 okno = pygame.display.set_mode((szerokosc, szerokosc+WYS_PASKA))
 pygame.display.set_caption("Wąż")
 kolor =(150, 150, 250)
+KOLOR_WEZA_JASNY = (150, 255, 0)
+KOLOR_WEZA_CIEMNY = (0, 180, 0)
 okno.fill(kolor)
 pygame.display.update()
 
 
 # --- Funkcje rysujące ---
-def rysuj_snake_kostka(poz):
+def rysuj_snake_kostka(poz, kolor_weza=(150, 255, 0)):
+
     x, y = poz
-    pozycja = (x * kratka, y * kratka+WYS_PASKA, kratka, kratka)
-    pygame.draw.rect(okno, (150, 255, 0), pozycja)
+    pozycja = (x * kratka, y * kratka + WYS_PASKA, kratka, kratka)
+    pygame.draw.rect(okno, kolor_weza, pozycja)
     if poz==snake[-1]:
         r = kratka//6
         oko1 = (x*kratka+kratka//3,y*kratka+WYS_PASKA+kratka//3)
@@ -36,8 +39,14 @@ def rysuj_kolo(poz):
     pygame.draw.circle(okno, (225, 0, 0), pozycja, r)
         
 def rysuj_snake(snake):
-    for kostka in snake:
-        rysuj_snake_kostka(kostka)
+    for i, kostka in enumerate(snake):
+        if i % 2 == 0:
+            kolor_weza = KOLOR_WEZA_JASNY
+        else:
+            kolor_weza = KOLOR_WEZA_CIEMNY
+
+        rysuj_snake_kostka(kostka, kolor_weza)
+
 
     
 def czyszczenie():
