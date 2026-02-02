@@ -96,6 +96,7 @@ def instrukcja_pomoc():
             "Sterowanie:\n"
             "- Strzałki: poruszanie wężem\n"
             "- P: pauza / wznowienie gry\n"
+            "- Spacja- tymczasowe przyspieszenie"
             "- N: nowa gra (po zakończeniu gry)\n"
             "- K: zakończenie gry\n\n"
             "Cel gry:\n"
