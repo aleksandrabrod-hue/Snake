@@ -133,3 +133,17 @@ Główna pętla gry odpowiada za:
 - gra poprawnie obsługuje wyjście poza planszę,
 - obsłużone są kolizje z własnym ciałem,
 - obsługiwana jest pauza i ponowne uruchomienie gry.
+
+## Opcje linii poleceń (CLI)
+
+Program obsługuje argumenty linii poleceń umożliwiające konfigurację gry
+bez modyfikowania kodu źródłowego.
+
+Dostępne opcje:
+- `--help` – wyświetla instrukcję obsługi gry
+- `--grid` – ustawia rozmiar planszy (liczbę kratek)
+- `--fps` – ustawia początkową prędkość gry
+
+Przykład uruchomienia:
+```bash
+python pro_gr.py --grid 30 --fps 10
