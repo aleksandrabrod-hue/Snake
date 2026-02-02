@@ -12,11 +12,32 @@ font = pygame.font.SysFont(None, 22) #font do wyswietlania wyniku
 szerokosc = kratka * ilkrat
 okno = pygame.display.set_mode((szerokosc, szerokosc+WYS_PASKA))
 pygame.display.set_caption("Wąż")
-kolor =(150, 150, 250)
+KOLOR_TLA_PLANSZY = (150, 150, 250)
+KOLOR_TLA_PASKA = (50, 150, 50)
+KOLOR_TLA_GAME_OVER = (100, 0, 0)
 KOLOR_WEZA_JASNY = (150, 255, 0)
 KOLOR_WEZA_CIEMNY = (0, 180, 0)
-okno.fill(kolor)
+okno.fill(KOLOR_TLA_PLANSZY)
 pygame.display.update()
+
+TLA_GRY = {
+    "domyslne": {   # to co masz teraz
+        "plansza": (150, 150, 250),
+        "pasek": (50, 150, 50),
+        "game_over": (100, 0, 0)
+    },
+    "pomaranczowe": {
+        "plansza": (255, 210, 150),   # jasny pomarańcz
+        "pasek": (255, 165, 80),
+        "game_over": (180, 80, 0)
+    },
+    "szare": {
+        "plansza": (200, 200, 200),
+        "pasek": (120, 120, 120),
+        "game_over": (80, 80, 80)
+    }
+}
+
 
 
 # --- Funkcje rysujące ---
@@ -50,7 +71,8 @@ def rysuj_snake(snake):
 
     
 def czyszczenie():
-    okno.fill(kolor)
+    okno.fill(KOLOR_TLA_PLANSZY)
+
     
 def rysuj(snake, kolo):
     czyszczenie()
@@ -65,6 +87,12 @@ def ekran_game_over():
     small_font = pygame.font.SysFont(None, 30)
     rysuj_wynik() 
     while True:
+        pygame.draw.rect(
+            okno,
+            KOLOR_TLA_GAME_OVER,
+            (0, WYS_PASKA, szerokosc, szerokosc)
+        )
+
        # okno.fill((100, 0, 0))
        #powyższe zostało zastąpine, aby nie zakrywać linijki z wynikiem 
         pygame.draw.rect(okno, (100, 0, 0), (0, WYS_PASKA, szerokosc, szerokosc))
@@ -90,23 +118,44 @@ def ekran_game_over():
                     return
 
 def instrukcja_pomoc():
-    pomoc = argparse.ArgumentParser(
+    global KOLOR_TLA_PLANSZY, KOLOR_TLA_PASKA, KOLOR_TLA_GAME_OVER
+
+    parser = argparse.ArgumentParser(
         prog="pro_gr.py",
         description=(
+            "=== Gra Snake ===\n\n"
             "Sterowanie:\n"
-            "- Strzałki: poruszanie wężem\n"
-            "- P: pauza / wznowienie gry\n"
-            "- Spacja- tymczasowe przyspieszenie"
-            "- N: nowa gra (po zakończeniu gry)\n"
-            "- K: zakończenie gry\n\n"
+            "  Strzałki: poruszanie wężem\n"
+            "  P: pauza / wznowienie gry\n"
+            "  Spacja: tymczasowe przyspieszenie\n"
+            "  N: nowa gra (po zakończeniu gry)\n"
+            "  K: zakończenie gry\n\n"
             "Cel gry:\n"
-            "Zdobycie jak największej liczby punktów poprzez zbieranie jedzenia\n"
-            "i unikanie kolizji ze ścianami oraz własnym ogonem."
+            "  Zdobycie jak największej liczby punktów poprzez zbieranie jedzenia\n"
+            "  i unikanie kolizji ze ścianami oraz własnym ogonem.\n"
         ),
         formatter_class=argparse.RawTextHelpFormatter
     )
 
-    pomoc.parse_args()
+    parser.add_argument(
+        "--tlo",
+        choices=TLA_GRY.keys(),
+        default="domyslne",
+        help=(
+            "Motyw tła gry:\n"
+            "  domyslne      – Twój obecny kolor (niebieskie tło)\n"
+            "  pomaranczowe  – jasny pomarańczowy\n"
+            "  szare         – szary"
+        )
+    )
+
+    argumenty = parser.parse_args()
+
+    wybrane_tlo = TLA_GRY[argumenty.tlo]
+    KOLOR_TLA_PLANSZY = wybrane_tlo["plansza"]
+    KOLOR_TLA_PASKA = wybrane_tlo["pasek"]
+    KOLOR_TLA_GAME_OVER = wybrane_tlo["game_over"]
+
 
 # --- Funkcja resetu gry ---
 def reset_gry():
@@ -133,9 +182,10 @@ def reset_gry():
 def rysuj_wynik():
     # tło paska
     pygame.draw.rect(
-        okno,
-        (50, 150, 50),
-        (0, 0, szerokosc, WYS_PASKA)
+    okno,
+    KOLOR_TLA_PASKA,
+    (0, 0, szerokosc, WYS_PASKA)
+
     )
 
     wynik = f"Twój wynik: {len(snake)-1}"
@@ -176,7 +226,11 @@ if __name__ == "__main__":
             if event.type == pygame.QUIT:
                 quit()
             elif event.type == pygame.KEYDOWN:
-                if not ruch_wykonany:
+                if event.key == pygame.K_p:
+                    pauza = not pauza
+                    #continue
+
+                elif not pauza and not ruch_wykonany:
                     if event.key == pygame.K_UP and kierunek != "DOL":
                         kierunek = "GORA"
                         ruch_wykonany = True
