@@ -128,8 +128,10 @@ def instrukcja_pomoc():
             "  Strzałki: poruszanie wężem\n"
             "  P: pauza / wznowienie gry\n"
             "  Spacja: tymczasowe przyspieszenie\n"
+            "  A: przyspieszenie do stalej predkosci 6 fps\n"
             "  N: nowa gra (po zakończeniu gry)\n"
             "  K: zakończenie gry\n\n"
+            
             "Cel gry:\n"
             "  Zdobycie jak największej liczby punktów poprzez zbieranie jedzenia\n"
             "  i unikanie kolizji ze ścianami oraz własnym ogonem.\n"
@@ -159,11 +161,12 @@ def instrukcja_pomoc():
 
 # --- Funkcja resetu gry ---
 def reset_gry():
-    global snake, kierunek, kolo, pauza, temp_FPS
+    global snake, kierunek, kolo, pauza, temp_FPS, temp2_FPS
 
     pauza = False
     
     temp_FPS = False
+    temp2_FPS = False
     start_x = random.randint(0, ilkrat - 10)
     start_y = random.randint(0, ilkrat - 10)
 
@@ -208,6 +211,7 @@ kierunek = "PRAWO"  # domyślny kierunek
 clock = pygame.time.Clock()
 pauza = False
 temp_FPS =False
+temp2_FPS = False
 temp_snake=1
 ruch_wykonany = False
 
@@ -247,9 +251,14 @@ if __name__ == "__main__":
                         pauza = not pauza
                     elif event.key == pygame.K_SPACE:
                         temp_FPS = not temp_FPS
+                    elif event.key == pygame.K_a:
+                        temp2_FPS = not temp2_FPS
         # przyspieszanie
         if temp_FPS == True:
             FPS=FPS+6
+
+        if temp2_FPS == True:
+            FPS= 6
         
         if len(snake) == temp_snake+1:
             temp_FPS = False

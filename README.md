@@ -53,3 +53,8 @@ pip install -r requirements.txt
 ```bash
 python pro_gr.py
 ```
+### 5. Po uruchomieniu
+Aby wyświetlić pomoc:
+```bash
+python pro_gr.py --help
+```
