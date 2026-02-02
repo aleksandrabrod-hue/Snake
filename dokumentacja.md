@@ -52,7 +52,7 @@ Gra kończy się w momencie kolizji węża ze ścianą planszy lub z własnym ci
 - `FPS` – liczba klatek na sekundę (prędkość gry)
 - `pauza` – flaga wstrzymania gry
 - `temp_FPS` – flaga tymczasowego przyspieszenia gry
-- `temp_FPS` – flaga jednostajnej prędkości
+- `temp_FPS2` – flaga jednostajnej prędkości
 
 ---
 
