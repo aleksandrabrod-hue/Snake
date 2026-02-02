@@ -80,44 +80,23 @@ def ekran_game_over():
                     reset_gry()
                     return
 
-def parse_args():
-    parser = argparse.ArgumentParser(
+def instrukcja_pomoc():
+    pomoc = argparse.ArgumentParser(
+        prog="pro_gr.py",
         description=(
-            "Gra Snake w Pythonie (pygame)\n\n"
             "Sterowanie:\n"
-            "- Strzalki: ruch\n"
-            "- P: pauza\n"
-            "- Zamkniecie okna: wyjscie\n\n"
-            "Przyklad uruchomienia:\n"
-            "python pro_gr.py --grid 25 --fps 8"
+            "- Strzałki: poruszanie wężem\n"
+            "- P: pauza / wznowienie gry\n"
+            "- N: nowa gra (po zakończeniu gry)\n"
+            "- K: zakończenie gry\n\n"
+            "Cel gry:\n"
+            "Zdobycie jak największej liczby punktów poprzez zbieranie jedzenia\n"
+            "i unikanie kolizji ze ścianami oraz własnym ogonem."
         ),
         formatter_class=argparse.RawTextHelpFormatter
     )
 
-    parser.add_argument(
-        "--grid",
-        type=int,
-        default=20,
-        help="Liczba kratek planszy (10–40)"
-    )
-
-    parser.add_argument(
-        "--fps",
-        type=int,
-        default=6,
-        help="Poczatkowa predkosc gry (1–20)"
-    )
-
-    args = parser.parse_args()
-
-    # --- WALIDACJA ---
-    if not (10 <= args.grid <= 40):
-        parser.error("grid musi byc w zakresie 10–40")
-
-    if not (1 <= args.fps <= 20):
-        parser.error("fps musi byc w zakresie 1–20")
-
-    return args
+    pomoc.parse_args()
 
 # --- Funkcja resetu gry ---
 def reset_gry():
@@ -176,10 +155,7 @@ ruch_wykonany = False
 
 
 if __name__ == "__main__":
-    args = parse_args()
-
-    ilkrat = args.grid
-    FPS = args.fps
+    instrukcja_pomoc()
 # --- Główna pętla ---
     while True:
         if len(snake)-1 >=10 :
