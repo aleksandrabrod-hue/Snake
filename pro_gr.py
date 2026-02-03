@@ -21,13 +21,13 @@ okno.fill(KOLOR_TLA_PLANSZY)
 pygame.display.update()
 
 TLA_GRY = {
-    "domyslne": {   # to co masz teraz
+    "domyslne": {  
         "plansza": (150, 150, 250),
         "pasek": (50, 150, 50),
         "game_over": (100, 0, 0)
     },
     "pomaranczowe": {
-        "plansza": (255, 210, 150),   # jasny pomarańcz
+        "plansza": (255, 210, 150),  
         "pasek": (255, 165, 80),
         "game_over": (180, 80, 0)
     },
@@ -93,8 +93,7 @@ def ekran_game_over():
             (0, WYS_PASKA, szerokosc, szerokosc)
         )
 
-       # okno.fill((100, 0, 0))
-       #powyższe zostało zastąpine, aby nie zakrywać linijki z wynikiem 
+       
         pygame.draw.rect(okno, (100, 0, 0), (0, WYS_PASKA, szerokosc, szerokosc))
         tekst = font.render("GAME OVER", True, (255, 255, 255))
         guzik_koniec = small_font.render("K - Koniec gry", True, (255, 255, 255))
@@ -200,14 +199,11 @@ def rysuj_wynik():
 
     okno.blit(tekst, (x, y))
 
-# --- Dane początkowe ---
-#snake = [(2,2), (3,2), (4,2), (5,2), (5,1)]
-#kolo = (11, 14)
+
 
 #losujemy początkowe położenie weza i jedzenia wywołłując gunkcje reset_gry
 reset_gry()
 kierunek = "PRAWO"  # domyślny kierunek
-#FPS = 3 # szybkość ruchu
 clock = pygame.time.Clock()
 pauza = False
 temp_FPS =False
